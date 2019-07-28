@@ -33,7 +33,7 @@ def noisyFakeLabels(size):
 
 
 generatorNet = Generator(64).to(device)
-dicriminatorNet = Discriminator(16).to(device)
+dicriminatorNet = Discriminator(64).to(device)
 
 
 generatorNet.apply(weights_init)

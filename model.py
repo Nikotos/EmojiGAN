@@ -38,10 +38,11 @@ class Generator(nn.Module):
         
         self.features = nn.Sequential()
     
-        self.features.add_module('conv1', HorseUnit(100,d * 4, 4, 1, 0))     # 1x1 -> 4x4
-        self.features.add_module('conv2', HorseUnit(d * 4,d * 2, 4, 2, 1))     # 4x4 -> 8x8
-        self.features.add_module('conv3', HorseUnit(d * 2,d, 4, 2, 1))      # 8x8 -> 16x16
-        self.features.add_module('conv4', nn.ConvTranspose2d(d, 3, 4, stride = 2, padding = 1))       # 16x16 -> 32x32
+        self.features.add_module('conv1', HorseUnit(100, d * 8, 4, 1, 0))     # 1x1 -> 4x4
+        self.features.add_module('conv2', HorseUnit(d * 8, d * 4, 4, 2, 1))     # 4x4 -> 8x8
+        self.features.add_module('conv3', HorseUnit(d * 4, d * 2, 4, 2, 1))      # 8x8 -> 16x16
+        self.features.add_module('conv4', HorseUnit(d * 2, d, 4, 2, 1))         # 16x16 -> 32x32
+        self.features.add_module('conv5', nn.ConvTranspose2d(d, 3, 4, stride = 2, padding = 1))       # 32x32 -> 64x64
         self.features.add_module('lastNorm', nn.Tanh())
 
 
@@ -78,10 +79,11 @@ class Discriminator(nn.Module):
         super(Discriminator, self).__init__()
 
         self.features = nn.Sequential()
-        self.features.add_module('conv1', DonkeyUnit(3, d, 4, 2, 1))       # 32x32 -> 16x16
-        self.features.add_module('conv2', DonkeyUnit(d, d * 2, 4, 2, 1))     # 16x16 -> 8x8
-        self.features.add_module('conv3', DonkeyUnit(d * 2, d * 4, 4, 2, 1))    # 8x8 -> 4x4
-        self.features.add_module('conv4', nn.Conv2d(d * 4, 1, 4, stride = 2))      # 4x4 -> 1X1
+        self.features.add_module('conv1', DonkeyUnit(3, d, 4, 2, 1))       # 64x64 -> 32x32
+        self.features.add_module('conv2', DonkeyUnit(d, d * 2, 4, 2, 1))     # 32x32 -> 16x16
+        self.features.add_module('conv3', DonkeyUnit(d * 2, d * 4, 4, 2, 1))    # 16x16 -> 8x8 -> 4x4
+        self.features.add_module('conv4', DonkeyUnit(d * 4, d * 8, 4, 2, 1))    # 8x8 -> 4x4
+        self.features.add_module('conv5', nn.Conv2d(d * 8, 1, 4, stride = 2))      # 4x4 -> 1X1
         self.features.add_module('activation', nn.Sigmoid())
 
     def forward(self,x):
