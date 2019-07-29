@@ -90,7 +90,7 @@ for e in range(config.numEpochs):
         """
         noiseDNA = torch.randn(config.batchSize, 100, 1, 1, device = device)
         fakeImage = generatorNet(noiseDNA)
-        replayMemory.addBatch(fakeImage)
+        replayMemory.addBatch(fakeImage.detach())
         #print(fakeImage.mean().item(), fakeImage.min().item(), fakeImage.max().item())
         
         labels = noisyFakeLabels(config.batchSize)
