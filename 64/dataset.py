@@ -87,6 +87,7 @@ class ReplayMemory:
     def addBatch(self, batch):
         for i in range(config.batchSize):
             self.add(batch[i])
+            print(batch[i].size())
 
     def getBatch(self):
         indicies = random.sample(self.allIndicies, config.batchSize)
