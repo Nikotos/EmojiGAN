@@ -26,7 +26,7 @@ def noisyFakeLabel():
 
 
 def noisyRealLabels(size):
-    return torch.tensor([noisyRealLabel() for i in range(size)])
+    return torch.tensor([noisyRealLabel() for i in range(size)], device = device)
 
 def noisyFakeLabels(size):
     return torch.tensor([noisyFakeLabel() for i in range(size)])
