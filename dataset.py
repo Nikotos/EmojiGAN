@@ -80,19 +80,19 @@ class ReplayMemory
             self.allIndicies.append(len(self.data))
             self.data.append(element)
         else:
+            self.data[self.currentPosition] = element
+            self.currentPosition = (self.currentPosition + 1) % self.size
 
 
+    def addBatch(self, batch):
+        for i in range(config.batchSize):
+            self.add(batch[i])
 
     def getBatch(self):
-        
         indicies = random.sample(self.allIndicies, config.batchSize)
-        data = [self.dataset.getOne(i) for i in indicies]
-        batch = torch.stack(data).view(config.batchShape)
+        bach = [self.data[i] for i in indicies]
+        batch = torch.stack(bach).view(config.batchShape)
         return batch
 
     def __len__(self):
         return len(self.dataset)
-
-
-def to(self, device):
-    self.dataset.to(device)

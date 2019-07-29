@@ -48,7 +48,7 @@ generatorOptimizer = optim.Adam(generatorNet.parameters(),
                                 lr = learningRate, betas = (beta1, 0.999))
 
 dataLoader = loadFromFile("dataLoader.pkl")
-
+replayMemory = ReplayMemory(5000)
 
 """
     Info track section
@@ -90,7 +90,7 @@ for e in range(config.numEpochs):
         """
         noiseDNA = torch.randn(config.batchSize, 100, 1, 1, device = device)
         fakeImage = generatorNet(noiseDNA)
-        
+        replayMemory.addBatch(fakeImage)
         #print(fakeImage.mean().item(), fakeImage.min().item(), fakeImage.max().item())
         
         labels = noisyFakeLabels(config.batchSize)
@@ -112,6 +112,20 @@ for e in range(config.numEpochs):
         errorGen.backward()
         generatorOptimizer.step()
         D_G_z2 = againPredictions.mean().item()
+
+
+
+        """
+            Reinforcement Learning Logic
+        """
+        if ((iter > 500) and (iter % 10) == 0):
+            fakeBatch = replayMemory.getBatch()
+            labels = noisyFakeLabels(config.batchSize)
+            predictions = dicriminatorNet(fakeBatch).view(-1)
+            localError = criterion(predictions, labels)
+            localError.backward()
+            dicriminatorOptimizer.step()
+
         """
             Info tracking Staff
         """
