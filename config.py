@@ -5,7 +5,7 @@ import json
 import torch
 
 
-device = "cpu"
+device = 0
 dtype = torch.float32
 
 batchSize = 32

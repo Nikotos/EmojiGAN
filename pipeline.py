@@ -125,7 +125,7 @@ for e in range(config.numEpochs):
         
 
 
-        if (iter % 100 == 0):
+        if (iter % 5000 == 0):
             with torch.no_grad():
                 fakeImage = generatorNet(fixedNoise)
                 fakeImage = ((fakeImage / 2) + 0.5) * 255
