@@ -10,6 +10,7 @@ dtype = torch.float32
 
 batchSize = 32
 batchShape = (batchSize, 3, 32, 32)
+imageShape = (32,32,3)
 
 numEpochs = 20
 numIterations = 10000

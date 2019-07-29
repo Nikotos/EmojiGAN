@@ -129,7 +129,7 @@ for e in range(config.numEpochs):
             with torch.no_grad():
                 fakeImage = generatorNet(fixedNoise)
                 fakeImage = ((fakeImage / 2) + 0.5) * 255
-                img = fakeImage.cpu().view(32,32,3).detach().numpy().astype(np.uint8)
+                img = fakeImage.cpu().view(config.imageShape).detach().numpy().astype(np.uint8)
                 cv2.imwrite(generatedImagePath + "img" + str(iter) + ".png", img)
                 torch.save(generatorNet.state_dict(), "Generator")
                 torch.save(dicriminatorNet.state_dict(), "Discriminator")

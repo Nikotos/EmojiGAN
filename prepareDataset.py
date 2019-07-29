@@ -14,7 +14,7 @@ import random
 import time
 from dataset import *
 DATASET_PATH = "data/"
-SIZE = 64
+SIZE = 32
 
 dataset = EmojiDataset()
 files = [f for f in listdir(DATASET_PATH)]
