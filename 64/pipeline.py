@@ -118,6 +118,7 @@ for e in range(config.numEpochs):
             Reinforcement Learning Logic
         """
         if ((iter > 500) and (iter % 10) == 0):
+            dicriminatorNet.zero_grad()
             fakeBatch = replayMemory.getBatch()
             labels = noisyFakeLabels(config.batchSize)
             predictions = dicriminatorNet(fakeBatch).view(-1)
