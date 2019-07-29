@@ -25,7 +25,7 @@ class HorseUnit(nn.Module):
                                             stride = stride, padding = pad, bias=False)
         self.batchNorm = nn.BatchNorm2d(outChannels)
         self.relu = nn.LeakyReLU(0.2)
-        self.drop = nn.Dropout2d(p=0.2)
+        self.drop = nn.Dropout2d(p=0.4)
 
     def forward(self, x):
         x = self.convTrans(x)

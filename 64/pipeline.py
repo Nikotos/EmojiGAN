@@ -32,8 +32,8 @@ def noisyFakeLabels(size):
     return torch.tensor([noisyFakeLabel() for i in range(size)], device = device)
 
 
-generatorNet = Generator(16).to(device)
-dicriminatorNet = Discriminator(16).to(device)
+generatorNet = Generator(128).to(device)
+dicriminatorNet = Discriminator(128).to(device)
 
 
 generatorNet.apply(weights_init)
