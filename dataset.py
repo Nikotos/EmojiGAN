@@ -68,7 +68,7 @@ class MyLoader:
         self.dataset.to(device)
 
 
-class ReplayMemory
+class ReplayMemory:
     def __init__(self, size):
         self.data = []
         self.size = size
