@@ -50,7 +50,6 @@ class EmojiDataset:
 
 class MyLoader:
     def __init__(self, dataset, indexMin, indexMax):
-        assert(indexMax > indexMin)
         self.dataset = dataset
         self.allIndicies = [i for i in range(indexMin, indexMax + 1)]
     
@@ -67,3 +66,33 @@ class MyLoader:
 
     def to(self, device):
         self.dataset.to(device)
+
+
+class ReplayMemory
+    def __init__(self, size):
+        self.data = []
+        self.size = size
+        self.allIndicies = []
+        self.currentPosition = 0
+
+    def add(self, element):
+        if (len(self.data) < self.size):
+            self.allIndicies.append(len(self.data))
+            self.data.append(element)
+        else:
+
+
+
+    def getBatch(self):
+        
+        indicies = random.sample(self.allIndicies, config.batchSize)
+        data = [self.dataset.getOne(i) for i in indicies]
+        batch = torch.stack(data).view(config.batchShape)
+        return batch
+
+    def __len__(self):
+        return len(self.dataset)
+
+
+def to(self, device):
+    self.dataset.to(device)
