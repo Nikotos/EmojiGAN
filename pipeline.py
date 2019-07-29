@@ -29,11 +29,11 @@ def noisyRealLabels(size):
     return torch.tensor([noisyRealLabel() for i in range(size)], device = device)
 
 def noisyFakeLabels(size):
-    return torch.tensor([noisyFakeLabel() for i in range(size)])
+    return torch.tensor([noisyFakeLabel() for i in range(size)], device = device)
 
 
-generatorNet = Generator(64).to(device)
-dicriminatorNet = Discriminator(64).to(device)
+generatorNet = Generator(100).to(device)
+dicriminatorNet = Discriminator(100).to(device)
 
 
 generatorNet.apply(weights_init)
